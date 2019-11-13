@@ -37,13 +37,6 @@ public class MainActivityFragment extends Fragment {
 
                 EndpointAsyncTask task = new EndpointAsyncTask();
                 task.execute(getContext());
-                String joke = task.getJoke();
-
-                // Create Intent to launch JokeFactory Activity
-                Intent intent = new Intent(getContext(), DisplayJokeActivity.class);
-                // Put the string in the envelope
-                intent.putExtra(getString(R.string.chosenJoke), joke);
-                startActivity(intent);
             }
         });
 

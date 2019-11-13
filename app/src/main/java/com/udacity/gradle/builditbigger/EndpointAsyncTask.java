@@ -1,9 +1,11 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.gcs.androidjokelibrary.DisplayJokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -16,7 +18,7 @@ public class EndpointAsyncTask extends AsyncTask<Context, Void, String> {
 
     private static MyApi myApiService = null;
     private Context context;
-    private String joke;
+    private String joke = "";
 
     @Override
     protected String doInBackground(Context... contexts) {
@@ -47,7 +49,13 @@ public class EndpointAsyncTask extends AsyncTask<Context, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+
         joke = s;
+
+        Intent intent = new Intent(context, DisplayJokeActivity.class);
+        intent.putExtra(context.getString(R.string.chosenJoke), s);
+        context.startActivity(intent);
     }
 
     public String getJoke(){
